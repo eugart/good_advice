@@ -1,0 +1,202 @@
+﻿<Page x:Class="GoodAdvice.Main"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu" 
+        xmlns:local="clr-namespace:GoodAdvice" 
+        mc:Ignorable="d" 
+        Title="Good Advice" 
+        Width="Auto" Height="Auto" Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border 
+                Name="Border"
+                BorderBrush="Orange" 
+                BorderThickness="3" 
+                Padding="0, 2"
+                Background="Black"
+                CornerRadius="10"
+                TextBlock.Foreground="Orange">
+                <ContentPresenter RecognizesAccessKey="True"></ContentPresenter>
+            </Border>
+            <ControlTemplate.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard Name="MouseEnter">
+                        <Storyboard >
+                            <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            AutoReverse="False"
+                                            To="Orange"
+                                            Duration="0:0:0.1"/>
+                            <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                            AutoReverse="False"
+                                            To="White"
+                                            Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard Name="MouseLeave">
+                        <Storyboard >
+                            <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            AutoReverse="False"
+                                            To="Black"
+                                            Duration="0:0:0.1"/>
+                            <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                            AutoReverse="False"
+                                            To="Orange"
+                                            Duration="0:0:0.1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
+
+    <Grid Name="main">
+        <Grid Margin="295,-5,0,0"  
+              Background="Transparent" 
+              Height="135" 
+              VerticalAlignment="Top" Name="Location">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Label x:Name="label1"
+                       HorizontalContentAlignment="Left"
+                       VerticalContentAlignment="Top"
+                       Width="170"
+                       Opacity="1"
+                       BorderThickness="0" 
+                       Foreground="Black" 
+                       FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Book"                  
+                   >Ваше местоположение:
+                </Label>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <Label x:Name="label2"
+                       HorizontalContentAlignment="Right"
+                       VerticalContentAlignment="Top"
+                       Width="170"
+                       Opacity="1"
+                       BorderThickness="0"
+                       Foreground="Orange" 
+                       FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold" Initialized="label2_Initialized">
+                </Label>
+            </Viewbox>
+        </Grid>
+
+        <Grid Background="Black" 
+              Opacity="0.65" 
+              Margin="310,200,10,0" Name="Info">
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                <TextBox x:Name="textBox1" IsReadOnly="True" Text="Хотите помыть свой авто?" Background="Black" BorderThickness="0" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Book"/>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                <TextBox x:Name="textBox2" IsReadOnly="True" Margin="0, 20, 85, 0" Text="А вдруг дождь?"  Background="Black"  BorderThickness="0" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Book"/>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                <TextBox x:Name="textBox3" IsReadOnly="True" Margin="95, 44, 0, 0" Text="Получите совет на основе"  Background="Black"  BorderThickness="0" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold"/>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                <TextBox x:Name="textBox4" IsReadOnly="True" Margin="140, 64.5, 0, 0" Text="прогноза погоды на"  Background="Black"  BorderThickness="0" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold"/>
+            </Viewbox>
+
+            <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                <TextBox x:Name="textBox5" IsReadOnly="True" Margin="140, 77, 0, 0" Text="последующие дни."  Background="Black"  BorderThickness="0" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold"/>
+            </Viewbox>
+
+            <Viewbox Stretch="None" VerticalAlignment="Bottom">
+                <Button 
+                    Template="{StaticResource ButtonTemplate}" 
+                    Margin ="0, 0, 0, 20" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" 
+                    Height="50" 
+                    Width="250" 
+                    TextBlock.FontSize="35" 
+                    TextBlock.FontFamily="/GoodAdvice;component/Fonts/#Bebas Neue Book"
+                    TextBlock.TextAlignment="Center" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Book"
+                    Click="Button_Click">
+                    Мыть или не мыть?
+                </Button>
+            </Viewbox>
+        </Grid>
+        <Popup Name="pLink" 
+               StaysOpen="False" 
+               Placement="Top" 
+               HorizontalAlignment="Right" 
+               MaxWidth="150"
+               PopupAnimation="Scroll" 
+               AllowsTransparency="True">
+            <Border BorderBrush="LightBlue" BorderThickness="2" Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap" Name="textBlock1">
+                </TextBlock>
+            </Border>
+        </Popup>
+        
+        <Frame x:Name="ContentFrame" ContentRendered="ContentFrame_ContentRendered"/>
+
+        <Grid Name="Wheather" Margin="310, 70, 10, 0" MaxHeight="120" VerticalAlignment="Top" Visibility="Collapsed">
+            <Grid.Resources>
+
+                <XmlDataProvider x:Key="rss" 
+                                 XPath="/rss/channel"/>
+
+                <DataTemplate DataType="item">
+                    <StackPanel>
+                        <TextBlock Text="{Binding XPath=title}" Foreground="White" FontSize="18"/>
+                        <TextBlock TextWrapping="Wrap" Width="520"  FontSize="12" Foreground="White" Text="{Binding XPath=description}"/>
+                        <Image Margin="15,10,0,0" Width="50" Height="50"   
+                               Stretch="Uniform"  
+                               HorizontalAlignment="Center"    
+                               Source="{Binding XPath=enclosure/@url}" />
+                    </StackPanel>
+                </DataTemplate>
+
+            </Grid.Resources>
+
+            <Viewbox Name="viewbox1" 
+                     Stretch="Uniform" 
+                     VerticalAlignment="Top" 
+                     Visibility="Hidden">
+                <Border BorderBrush="Black" BorderThickness="1" Width="580" Height="100" CornerRadius="6">
+                    <ListBox ScrollViewer.HorizontalScrollBarVisibility="Hidden"  Width="580" Height="100" Background="Black" Opacity="0.65" ItemsSource="{Binding Source={StaticResource rss}, XPath=item}"/>
+                </Border>
+            </Viewbox>
+
+            <Viewbox Name="viewbox2" 
+                     Stretch="Uniform" 
+                     VerticalAlignment="Top" 
+                     Visibility="Hidden">
+                <Border BorderBrush="Black" BorderThickness="1" Width="580" Height="100" CornerRadius="6">
+                    <Label Content="К сожалению, в давнном городе прогноз погоды не доступен..." Background="Black" Opacity="0.65" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold"/>
+                </Border>
+            </Viewbox>
+        </Grid>
+        <Popup Name="Advice" 
+               StaysOpen="False" 
+               Placement ="Center"
+               Closed="Advice_Closed"
+               PopupAnimation="Scroll" 
+               AllowsTransparency="True">
+            <Border BorderBrush="LightBlue" 
+                    BorderThickness="2" 
+                    Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap" FontSize="25" FontFamily="/GoodAdvice;component/fonts/#Bebas Neue Bold" Name="AdviceText"/>
+            </Border>
+        </Popup>
+    </Grid>
+</Page>

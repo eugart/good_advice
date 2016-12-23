@@ -1,0 +1,74 @@
+ymaps.ready(init);
+
+function init() {
+	//создание карты
+    var geolocation = ymaps.geolocation,
+        myMap = new ymaps.Map('map', 
+		{
+            center: [54.16, 45.16],
+            zoom: 15,
+			controls: []
+        });
+
+	//создание строки поиска
+	var searchControl = new ymaps.control.SearchControl(
+	{
+        options: 
+		{
+            provider: 'yandex#search',
+			float: 'right'
+        }
+    });
+	//создание кнопки определения текущего местоположения
+	var geolocationControl = new ymaps.control.GeolocationControl(
+	{
+		options: 
+		{
+			noPlacemark: true,
+			float: 'right'
+		}	
+	});
+	//определение местопположения по нажатию на кнопку
+	geolocationControl.events.add('locationchange', function (event) 
+	{
+		var position = event.get('position'),
+		locationPlacemark = new ymaps.Placemark(position);
+		// Установим новый центр карты в текущее местоположение пользователя.
+		myMap.panTo(position);
+	})
+	
+	// Сравним положение, вычисленное по ip пользователя и
+    // положение, вычисленное средствами браузера.
+    geolocation.get(
+	{
+        provider: 'yandex',
+        mapStateAutoApply: true
+    }).then(function (result) 
+	{
+        // Красным цветом пометим положение, вычисленное через ip.
+        result.geoObjects.options.set('preset', 'islands#redCircleIcon');
+        result.geoObjects.get(0).properties.set(
+		{
+            balloonContentBody: 'Мое местоположение'
+        });
+        myMap.geoObjects.add(result.geoObjects);
+    });
+		
+    geolocation.get(
+	{
+        provider: 'browser',
+        //mapStateAutoApply: true
+    }).then(function (result) 
+	{
+        // Красным цветом пометим положение, полученное через браузер.
+        // Если браузер не поддерживает эту функциональность, метка не будет добавлена на карту.
+        myMap.geoObjects.add(result.geoObjects);
+		myMap.setCenter(result.geoObjects.get(0).geometry.getCoordinates(), 14);
+    });
+
+	myMap.controls.add('zoomControl', {position: {right: '10px', top: '100px'}});
+	myMap.controls.add('typeSelector');
+	myMap.controls.add(geolocationControl);
+	myMap.controls.add(searchControl);
+	searchControl.search('АвтоМойка');
+}
